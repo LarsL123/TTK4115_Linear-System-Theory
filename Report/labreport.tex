@@ -1,0 +1,54 @@
+\documentclass[11pt, a4paper, USenglish]{article} % change ``USenglish'' to ``norsk'' if applicable.
+
+\usepackage{kyblab} % Contains all included packages. See kyblab.sty.
+\addbibresource{bibliography.bib} % Makes the bibliography file available to biblatex.
+
+\begin{document}
+
+% Titlepage
+\title{LaTeX Lab Report Template}
+\author{Group 00\\Student no. 70000\\Student no. 70001\\Student no. 70002}
+\date{September 13, 2021}
+\begin{titlepage}
+    \maketitle
+    \begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/itk_ntnu}\\
+    Department of Engineering Cybernetics
+    \end{figure}
+    \thispagestyle{empty}
+\end{titlepage}
+
+% Abstract
+\newpage
+\input{abstract}
+\thispagestyle{empty} % Avoid page numbering on the abstract page.
+
+% TOC
+\newpage
+\tableofcontents
+\thispagestyle{empty} % Avoid page numbering on the table of contents.
+
+% Main content
+\newpage
+\setcounter{page}{1}
+\include{intro_new}
+\include{labday1}
+\include{labday2}
+\include{labday3}
+\include{labday4}
+
+% \input simply inserts the contents of the file, while \include forces a \newpage.
+% See \input vs. \include: http://tex.stackexchange.com/questions/246/when-should-i-use-input-vs-include
+
+% References
+\newpage
+\addcontentsline{toc}{section}{References}
+\printbibliography{}
+\label{sec:bibliography}
+
+
+\include{appendix}
+
+
+\end{document}
