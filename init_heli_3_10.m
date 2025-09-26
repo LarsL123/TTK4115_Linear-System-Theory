@@ -32,11 +32,45 @@ K_f = (2*m_p*l_h*g - m_c*l_c*g)/(v_s0*l_h);
 
 %Defining system constants
 L_1 = l_p*K_f;
+L_2 = l_c*m_c*g-2*m_p*g*l_h;
+L_3 = K_f*l_h;
+L_4 = l_h*K_f;
 J_p = 2*m_p*l_p^2;
+J_e = m_c*l_c^2 + 2*m_p*l_h^2;
+J_lambda = m_c*l_c^2+2*m_p*(l_h^2+l_p^2);
 K_1 = L_1/J_p;
+K_2 = L_3/J_e;
+K_3 = -(L_2*L_4)/(L_3*J_lambda);
 
 %Pole placement
-lambda_1 = -10;
-lambda_2 = -10;
+lambda_1 = -1;
+lambda_2 = -1;
 K_pp = (lambda_1*lambda_2)/K_1;
 K_pd = -(lambda_1+lambda_2)/K_1;
+
+q_11 = 10;
+q_22 = 10;
+q_33 = 100;
+q_44 = 10;
+q_55 = 10;
+
+r_11 = 1;
+r_22 = 1;
+
+%Lqr cost matrices:
+Q_lqr = diag([q_11 q_22 q_33 q_44 q_55]);
+R_lqr = diag([r_11 r_22]);
+
+%Defining system matrices:
+A = [0 1 0 0 0; 0 0 0 0 0; 0 0 0 0 0; -1 0 0 0 0; 0 0 -1 0 0];
+B = [ 0 0; 0 K_1; K_2 0; 0 0; 0 0];
+G = [0 0;0 0;0 0;1 0; 0 1];
+K = lqr(A,B,Q_lqr,R_lqr)
+%F = [K(1,1) K(1,3); K(2,1) K(2,3)];
+C = [1 0 0 0 0; 0 0 1 0 0];
+F = [K(1,1) K(1,3); K(2,1) K(2,3)];
+
+
+
+
+poles = eig(A-B*K)
