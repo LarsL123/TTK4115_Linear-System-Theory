@@ -1,0 +1,11 @@
+# Simulink model files are binary, never try to diff/merge
+*.slx binary
+
+# MATLAB scripts/functions should be treated as text with normalized LF
+*.m text eol=lf
+
+# If you also use MATLAB live scripts
+*.mlx binary
+
+# General line ending normalization for text files
+* text=auto

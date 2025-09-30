@@ -50,7 +50,7 @@ K_pd = -(lambda_1+lambda_2)/K_1;
 
 q_11 = 10;
 q_22 = 10;
-q_33 = 100;
+q_33 = 10;
 q_44 = 10;
 q_55 = 10;
 
@@ -61,34 +61,36 @@ r_22 = 1;
 Q_lqr = diag([q_11 q_22 q_33 q_44 q_55]);
 R_lqr = diag([r_11 r_22]);
 
-%{
 %Defining system matrices:
 A = [0 1 0 0 0; 0 0 0 0 0; 0 0 0 0 0; -1 0 0 0 0; 0 0 -1 0 0];
 B = [ 0 0; 0 K_1; K_2 0; 0 0; 0 0];
 G = [0 0;0 0;0 0;1 0; 0 1];
-K = lqr(A,B,Q_lqr,R_lqr)
+K = lqr(A,B,Q_lqr,R_lqr);
 %F = [K(1,1) K(1,3); K(2,1) K(2,3)];
 C = [1 0 0 0 0; 0 0 1 0 0];
 F = [K(1,1) K(1,3); K(2,1) K(2,3)];
 
-poles = eig(A-B*K)
+poles_plant = eig(A-B*K)
 
-%}
+%Defining observer matrices
+A_obs = [0 1 0 0 0;
+        0 0 0 0 0;
+        0 0 0 1 0;
+        0 0 0 0 0;
+        K_3 0 0 0 0];
+B_obs = [ 0 0;
+        0 K_1;
+        0 0;
+        K_2 0;
+        0 0];
 
-A = [0 1 0 0 0; 0 0 0 0 0; 0 0 0 1 0; 0 0 0 0 0; K_3 0 0 0 0];
-B = [0 0; 0 K_1;0 0;K_2 0; 0 0];
-C = [1 0 0 0 0; 0 0 1 0 0;  0 0 0 0 1];
-
-obs = obsv(A,C)
-rank(obs)
+C_obs = eye(5);
 
 
+luenberger_poles = [-2,-3,-2,-1.5,-3]
+L_obs =place(A_obs', C_obs',luenberger_poles)'
+
+poles_L = eig(L_obs) %snakke om i rapporten sjef??
 
 
-
-
-%{
-For report: Part 3 question 2:
-    Write about what worked and not. And why!!
-
-%}
+PORT = 10;
