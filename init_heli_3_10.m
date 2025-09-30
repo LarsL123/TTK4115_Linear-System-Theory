@@ -61,6 +61,7 @@ r_22 = 1;
 Q_lqr = diag([q_11 q_22 q_33 q_44 q_55]);
 R_lqr = diag([r_11 r_22]);
 
+%{
 %Defining system matrices:
 A = [0 1 0 0 0; 0 0 0 0 0; 0 0 0 0 0; -1 0 0 0 0; 0 0 -1 0 0];
 B = [ 0 0; 0 K_1; K_2 0; 0 0; 0 0];
@@ -70,7 +71,24 @@ K = lqr(A,B,Q_lqr,R_lqr)
 C = [1 0 0 0 0; 0 0 1 0 0];
 F = [K(1,1) K(1,3); K(2,1) K(2,3)];
 
-
-
-
 poles = eig(A-B*K)
+
+%}
+
+A = [0 1 0 0 0; 0 0 0 0 0; 0 0 0 1 0; 0 0 0 0 0; K_3 0 0 0 0];
+B = [0 0; 0 K_1;0 0;K_2 0; 0 0];
+C = [1 0 0 0 0; 0 0 1 0 0;  0 0 0 0 1];
+
+obs = obsv(A,C)
+rank(obs)
+
+
+
+
+
+
+%{
+For report: Part 3 question 2:
+    Write about what worked and not. And why!!
+
+%}
