@@ -1,0 +1,10 @@
+function [x_k1_post, P_k1_post] = fcn(P_k1, x_k1, yk, Cd, Rd)
+L_k = (P_k1*Cd')/(Cd*P_k1*Cd'+Rd);
+x_k1_post = x_k1+L_k*(yk-Cd*x_k1);
+P_k1_post = (eye(6)-L_k*Cd)*P_k1*(eye(6)-L_k*Cd)'+L_k*Rd*L_k';
+end
+
+function [x_k1_priori, P_k1_priori] = fcn(xk, Pk, uk, Ad, Bd,Qd)
+x_k1_priori = Ad*xk + Bd*uk;
+P_k1_priori = Ad*Pk*Ad'+Qd;
+end
