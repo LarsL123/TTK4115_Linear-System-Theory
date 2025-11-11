@@ -92,8 +92,13 @@ C_kalman = eye(6);
 
 %Discretization:
 Td = 0.002;
+<<<<<<< HEAD
 [Ad, Bd] = c2d(A_kalman,B_kalman,Td);
 Cd = C_kalman;
+=======
+[Ad, Bd] = c2d(A_kalman,B_kalman,Td)
+Cd = C_kalman
+>>>>>>> 47d3dae83e21eb8af31fe73cd70bbe9f4b042810
 
 %Finding covariances:
 %R_d2 = cov(simout);
@@ -112,12 +117,20 @@ Rd =    [0.0067    0.0009    0.0073    0.0012    0.0013   -0.0002;
    -0.0002    0.0004   -0.0003   -0.0010    0.0021    0.0023]
 
 
+<<<<<<< HEAD
 Qd = 0.000001*[1 0 0 0 0 0;
+=======
+Qd = 0.005*[1 0 0 0 0 0;
+>>>>>>> 47d3dae83e21eb8af31fe73cd70bbe9f4b042810
        0 1 0 0 0 0;
        0 0 1 0 0 0;
        0 0 0 1 0 0;
        0 0 0 0 1 0;
+<<<<<<< HEAD
        0 0 0 0 0 1]
+=======
+       0 0 0 0 0 1];
+>>>>>>> 47d3dae83e21eb8af31fe73cd70bbe9f4b042810
 %The first covariance is calculated with data when the helicopter is at
 %rest. Second one is at the linearization point while flying, Second one is
 %probably more representative as the first one is basically 0.
