@@ -14,7 +14,7 @@ poles =
 Test4: samme med sprangrespons:
 	
 Test1_integral:
-	q_11 = 10;
+q_11 = 10;
 q_22 = 10;
 q_33 = 10;
 q_44 = 10;

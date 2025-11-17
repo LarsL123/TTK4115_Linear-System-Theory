@@ -6,7 +6,7 @@ Test1:
     -1.0007 -27.5071 and -4.4295
     Saturation?
 
-Test2:
+Test2: (denne ble feil)
     Q = 100 100 100
     R = 1 1 
     poles:
